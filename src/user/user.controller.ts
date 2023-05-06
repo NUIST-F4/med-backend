@@ -21,13 +21,10 @@ export class UserController {
   }
 
   @authedGuards()
-  @Get('current')
+  @Post('current')
   //get current user
   async current( @Req() req ) {
-    return {
-      success: true,
-      data: req.user
-    };
+    return req.user;
   }
 
   @authedGuards()

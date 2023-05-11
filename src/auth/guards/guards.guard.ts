@@ -11,8 +11,8 @@ export function authedGuards(...guards: any[]) {
     );
 }
 
-//@unauthedGuards decorator, contains jwt guard
-export function unauthedGuards(...guards: any[]) {
+//@jwtGuard decorator, contains jwt guard
+export function jwtGuard(...guards: any[]) {
     return applyDecorators(
         UseGuards(AuthGuard('jwt'), ...guards),
     );
@@ -25,4 +25,4 @@ export function noGuards() {
     );
 }
 
-export default {authedGuards, unauthedGuards, noGuards};
+export default {authedGuards, jwtGuard, noGuards};

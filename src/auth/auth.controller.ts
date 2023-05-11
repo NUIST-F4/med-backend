@@ -13,18 +13,17 @@ export class AuthController {
     @UseGuards(AuthGuard('local'))
     @Post('login/account')
     async login(@Body() login: LoginDto, @Req() req) {
-        // req.user = await this.authService.getUser(user);
-        // console.log('req.user', req.user);
-        // console.log('login.dto', login);
-
-        return {
+        const ret = {
             jwt: await this.authService.login(req.user),
             status: 'ok',
             type: login.type,
             currentAuthority: req.user.role,
             ...req.user
         }
-        // return req.user;
+        // remove password from response
+        // TODO: 偷懒直接删了,应该改成拦截器
+        delete ret.password;
+        return ret
     }
 
     // outlogin
@@ -41,7 +40,6 @@ export class AuthController {
     getProfile(@Req() req) {
         return req.user;
     }
-
 }
 
 
